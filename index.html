@@ -65,15 +65,15 @@
         }
 
         .image-container {
-            width: 200px;
-            height: 200px;
+            width: 220px;
+            height: 220px;
             background: linear-gradient(135deg, #FFE4E1 0%, #FFF0F5 100%);
             border-radius: 20px;
             margin: 20px auto;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 8em;
+            font-size: 9em;
             box-shadow: 0 10px 30px rgba(255, 107, 157, 0.2);
         }
 
@@ -364,7 +364,7 @@
         <!-- Menu Inicial -->
         <div id="menuScreen" class="menu-screen">
             <h1>🎮 Jogo das Vogais</h1>
-            <p>Descubra com qual vogal começa a figura! 🎨</p>
+            <p>Clique na vogal que começa! 🎨</p>
             <button class="start-button" onclick="startGame()">Começar Jogo</button>
         </div>
 
@@ -376,7 +376,7 @@
 
             <div class="image-container" id="imageEmoji">🍎</div>
 
-            <div class="question-text">Com qual vogal começa?</div>
+            <div class="question-text">Qual vogal?</div>
 
             <div class="feedback" id="feedback"></div>
 
@@ -401,21 +401,21 @@
 
     <script>
         const words = [
-            { word: 'Maçã', emoji: '🍎', vowel: 'A' },
-            { word: 'Avião', emoji: '✈️', vowel: 'A' },
-            { word: 'Abelha', emoji: '🐝', vowel: 'A' },
-            { word: 'Escada', emoji: '🪜', vowel: 'E' },
-            { word: 'Elefante', emoji: '🐘', vowel: 'E' },
-            { word: 'Escola', emoji: '🏫', vowel: 'E' },
-            { word: 'Sorvete', emoji: '🍦', vowel: 'I' },
-            { word: 'Igreja', emoji: '⛪', vowel: 'I' },
-            { word: 'Iglu', emoji: '🏠', vowel: 'I' },
-            { word: 'Óculos', emoji: '👓', vowel: 'O' },
-            { word: 'Ovelha', emoji: '🐑', vowel: 'O' },
-            { word: 'Ovo', emoji: '🥚', vowel: 'O' },
-            { word: 'Uva', emoji: '🍇', vowel: 'U' },
-            { word: 'Urso', emoji: '🐻', vowel: 'U' },
-            { word: 'Uniforme', emoji: '⚽', vowel: 'U' }
+            { emoji: '🍎', vowel: 'A' },
+            { emoji: '✈️', vowel: 'A' },
+            { emoji: '🐝', vowel: 'A' },
+            { emoji: '🐘', vowel: 'E' },
+            { emoji: '🏫', vowel: 'E' },
+            { emoji: '🌳', vowel: 'E' },
+            { emoji: '🍦', vowel: 'I' },
+            { emoji: '⛪', vowel: 'I' },
+            { emoji: '🏝️', vowel: 'I' },
+            { emoji: '🐑', vowel: 'O' },
+            { emoji: '👓', vowel: 'O' },
+            { emoji: '🐙', vowel: 'O' },
+            { emoji: '🍇', vowel: 'U' },
+            { emoji: '🐻', vowel: 'U' },
+            { emoji: '☂️', vowel: 'U' }
         ];
 
         let currentQuestionIndex = 0;
