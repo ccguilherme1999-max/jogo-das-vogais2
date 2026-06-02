@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jogo das Vogais - Versão 2.0</title>
+    <title>Jogo das Vogais - Pré 1</title>
     <style>
         * {
             margin: 0;
@@ -12,8 +12,8 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f0f4ff 0%, #e8f0ff 100%);
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #FF6B9D 0%, #FEC860 50%, #30B0C0 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -21,142 +21,169 @@
             padding: 20px;
         }
 
-        .phone-frame {
-            width: 100%;
-            max-width: 400px;
+        .container {
             background: white;
             border-radius: 30px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
+            padding: 30px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
         }
 
-        .status-bar {
-            background: #2a2a2a;
-            color: white;
-            padding: 8px 20px;
-            font-size: 0.85em;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .header {
-            background: white;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .logo {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5em;
-            font-weight: bold;
-            color: white;
-        }
-
-        .header-title {
-            flex: 1;
-            margin-left: 15px;
-            font-size: 1em;
-            color: #666;
-            font-weight: 600;
-        }
-
-        .header-icons {
-            display: flex;
-            gap: 10px;
-        }
-
-        .icon-btn {
-            width: 35px;
-            height: 35px;
-            border-radius: 8px;
-            background: #f5f5f5;
-            border: none;
-            cursor: pointer;
-            font-size: 1.2em;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .icon-btn:hover {
-            background: #e8e8e8;
-        }
-
-        .icon-btn.dark {
-            background: #1a1a1a;
-            color: white;
-        }
-
-        .content {
-            flex: 1;
-            overflow-y: auto;
-            padding: 30px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .score-container {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        .stars-container {
+            font-size: 3em;
             margin-bottom: 20px;
-            align-self: flex-start;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
         }
 
         .star {
-            font-size: 2em;
+            animation: popStar 0.5s ease;
         }
 
-        .score-value {
-            font-size: 1.8em;
-            font-weight: bold;
-            color: #ffc107;
+        @keyframes popStar {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
         }
 
-        .progress-dots {
-            display: flex;
-            gap: 8px;
+        h1 {
+            color: #333;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .question-number {
+            color: #666;
+            font-size: 1.2em;
             margin-bottom: 20px;
-            justify-self: flex-end;
-            width: 100%;
-            justify-content: flex-end;
         }
 
-        .dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: #d0d0d0;
-            transition: all 0.3s ease;
+        .image-container {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, #FFE4E1 0%, #FFF0F5 100%);
+            border-radius: 20px;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8em;
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.2);
         }
 
-        .dot.active {
-            background: #4CAF50;
-            transform: scale(1.2);
+        .question-text {
+            font-size: 1.8em;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 30px;
+            margin-top: 20px;
         }
 
-        .card {
-            background: white;
-            border: 5px solid #ffc107;
-            border-radius: 30px;
-            padding: 30px 20px;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(255, 193, 7, 0.2);
+        .buttons-container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .vowel-button {
+            padding: 20px;
+            font-size: 2.5em;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s ease;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            color: white;
+        }
+
+        .vowel-button:hover {
+            transform: scale(1.1);
+        }
+
+        .vowel-button:active {
+            transform: scale(0.95);
+        }
+
+        .btn-a {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E8E);
+        }
+
+        .btn-a:hover {
+            box-shadow: 0 12px 20px rgba(255, 107, 107, 0.3);
+        }
+
+        .btn-e {
+            background: linear-gradient(135deg, #FFA502, #FFB84D);
+        }
+
+        .btn-e:hover {
+            box-shadow: 0 12px 20px rgba(255, 165, 2, 0.3);
+        }
+
+        .btn-i {
+            background: linear-gradient(135deg, #FFCD56, #FFE169);
+        }
+
+        .btn-i:hover {
+            box-shadow: 0 12px 20px rgba(255, 205, 86, 0.3);
+        }
+
+        .btn-o {
+            background: linear-gradient(135deg, #4ECDC4, #44B0AA);
+        }
+
+        .btn-o:hover {
+            box-shadow: 0 12px 20px rgba(78, 205, 196, 0.3);
+        }
+
+        .btn-u {
+            background: linear-gradient(135deg, #95E1D3, #B5F0EB);
+        }
+
+        .btn-u:hover {
+            box-shadow: 0 12px 20px rgba(149, 225, 211, 0.3);
+        }
+
+        .feedback {
+            font-size: 2em;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feedback.correct {
+            color: #4CAF50;
+        }
+
+        .feedback.incorrect {
+            color: #FF6B6B;
+        }
+
+        .hidden {
+            display: none;
         }
 
         .menu-screen {
@@ -167,533 +194,359 @@
         }
 
         .menu-screen h1 {
-            color: #333;
-            font-size: 1.8em;
+            font-size: 2.8em;
             margin-bottom: 20px;
         }
 
         .menu-screen p {
-            color: #666;
-            margin-bottom: 20px;
-            font-size: 1em;
-        }
-
-        .difficulty-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            width: 100%;
-            margin-bottom: 20px;
-        }
-
-        .difficulty-btn {
-            padding: 12px 20px;
-            border: 2px solid #ddd;
-            background: white;
-            border-radius: 15px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 0.95em;
-            transition: all 0.3s ease;
-            width: 100%;
-        }
-
-        .difficulty-btn:hover,
-        .difficulty-btn.active {
-            border-color: #ffc107;
-            background: #fffbf0;
-            transform: scale(1.02);
-        }
-
-        .question {
             font-size: 1.3em;
-            color: #333;
-            font-weight: 600;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+            color: #666;
+            margin-bottom: 30px;
         }
 
-        .question-emoji {
-            font-size: 1.5em;
-        }
-
-        .illustration {
-            width: 100%;
-            max-width: 200px;
-            height: 150px;
-            background: #f5f5f5;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4em;
-            margin: 20px 0;
-            margin-bottom: 20px;
-        }
-
-        .answer-display {
-            background: #f9f9f9;
-            padding: 15px;
-            border-radius: 15px;
-            margin-bottom: 25px;
-        }
-
-        .answer-question {
-            font-size: 1.2em;
-            color: #ff4081;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .answer-text {
+        .start-button {
+            background: linear-gradient(135deg, #FF6B9D, #FEC860);
+            color: white;
+            padding: 20px 40px;
             font-size: 1.8em;
-            color: #333;
-            font-weight: bold;
-            letter-spacing: 2px;
-        }
-
-        .feedback {
-            font-size: 1.1em;
-            margin-bottom: 15px;
-            min-height: 30px;
-            font-weight: bold;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .feedback.correct {
-            color: #4CAF50;
-        }
-
-        .feedback.incorrect {
-            color: #f44336;
-        }
-
-        .button-group {
-            display: flex;
-            gap: 15px;
-            width: 100%;
-            margin-top: 20px;
-        }
-
-        .answer-button {
-            flex: 1;
-            padding: 16px 20px;
-            border: 3px solid;
+            border: none;
             border-radius: 20px;
-            background: white;
             cursor: pointer;
-            font-size: 1.1em;
             font-weight: bold;
+            box-shadow: 0 12px 25px rgba(255, 107, 157, 0.3);
             transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
         }
 
-        .answer-button:active {
+        .start-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(255, 107, 157, 0.4);
+        }
+
+        .start-button:active {
             transform: scale(0.95);
         }
 
-        .btn-yes {
-            border-color: #ff4081;
-            color: #ff4081;
-        }
-
-        .btn-yes:hover {
-            background: #ffebee;
-            transform: translateY(-2px);
-        }
-
-        .btn-no {
-            border-color: #2196F3;
-            color: #2196F3;
-        }
-
-        .btn-no:hover {
-            background: #e3f2fd;
-            transform: translateY(-2px);
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .game-over-content {
+        .game-over {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 15px;
+            justify-content: center;
         }
 
-        .game-over-content h2 {
-            color: #333;
-            font-size: 1.6em;
-        }
-
-        .medal {
-            font-size: 3.5em;
-            animation: bounce 0.6s ease;
+        .final-medal {
+            font-size: 5em;
+            margin: 20px 0;
+            animation: bounce 0.8s ease;
         }
 
         @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-30px);
+            }
+        }
+
+        .final-message {
+            font-size: 1.8em;
+            color: #333;
+            margin: 20px 0;
+            font-weight: bold;
         }
 
         .final-score {
-            font-size: 2em;
-            color: #ffc107;
-            font-weight: bold;
-        }
-
-        .performance-message {
-            font-size: 1em;
+            font-size: 1.5em;
             color: #666;
-            text-align: center;
+            margin-bottom: 30px;
         }
 
-        .btn-restart {
-            background: #1a1a1a;
+        .restart-button {
+            background: linear-gradient(135deg, #FF6B9D, #FEC860);
             color: white;
-            padding: 14px 30px;
+            padding: 18px 35px;
+            font-size: 1.6em;
             border: none;
-            border-radius: 25px;
+            border-radius: 20px;
             cursor: pointer;
             font-weight: bold;
-            width: 100%;
-            margin-top: 10px;
+            box-shadow: 0 12px 25px rgba(255, 107, 157, 0.3);
             transition: all 0.3s ease;
-            font-size: 0.95em;
         }
 
-        .btn-restart:hover {
-            background: #333;
-            transform: translateY(-2px);
+        .restart-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(255, 107, 157, 0.4);
         }
 
-        .vowels-info {
-            background: #fffbf0;
-            border: 2px solid #ffc107;
-            border-radius: 15px;
-            padding: 15px;
-            margin-top: 20px;
-            text-align: center;
-            font-size: 0.9em;
-            color: #333;
+        .restart-button:active {
+            transform: scale(0.95);
         }
 
-        .vowels-info h3 {
-            color: #ff6b35;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
-
-        .vowels-info p {
-            color: #666;
-            margin: 5px 0;
-        }
-
-        @media (max-width: 480px) {
-            .phone-frame {
-                border-radius: 20px;
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
             }
 
-            .card {
-                border-width: 4px;
-                padding: 20px 15px;
+            h1 {
+                font-size: 2em;
             }
 
-            .question {
-                font-size: 1.15em;
+            .image-container {
+                width: 150px;
+                height: 150px;
+                font-size: 6em;
             }
 
-            .answer-text {
+            .question-text {
                 font-size: 1.5em;
             }
 
-            .medal {
-                font-size: 3em;
+            .vowel-button {
+                padding: 15px;
+                font-size: 2em;
             }
 
-            .final-score {
-                font-size: 1.6em;
+            .buttons-container {
+                gap: 8px;
+            }
+
+            .stars-container {
+                font-size: 2.5em;
+                gap: 8px;
+            }
+
+            .start-button,
+            .restart-button {
+                font-size: 1.5em;
+                padding: 16px 30px;
             }
         }
 
-        ::-webkit-scrollbar {
-            width: 4px;
-        }
+        @media (max-width: 400px) {
+            .container {
+                padding: 15px;
+            }
 
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
+            h1 {
+                font-size: 1.8em;
+            }
 
-        ::-webkit-scrollbar-thumb {
-            background: #ddd;
-            border-radius: 2px;
-        }
+            .question-text {
+                font-size: 1.3em;
+            }
 
-        ::-webkit-scrollbar-thumb:hover {
-            background: #bbb;
+            .vowel-button {
+                padding: 12px;
+                font-size: 1.5em;
+            }
+
+            .image-container {
+                width: 120px;
+                height: 120px;
+                font-size: 5em;
+            }
+
+            .stars-container {
+                font-size: 2em;
+            }
+
+            .start-button,
+            .restart-button {
+                font-size: 1.3em;
+                padding: 14px 25px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="phone-frame">
-        <div class="status-bar">
-            <span>22:20</span>
-            <span>📡 4G 🔋 72%</span>
+    <div class="container">
+        <!-- Menu Inicial -->
+        <div id="menuScreen" class="menu-screen">
+            <h1>🎮 Jogo das Vogais</h1>
+            <p>Descubra com qual vogal começa a figura! 🎨</p>
+            <button class="start-button" onclick="startGame()">Começar Jogo</button>
         </div>
 
-        <div class="header">
-            <div class="logo">🎮</div>
-            <div class="header-title">Jogo das Vogais</div>
-            <div class="header-icons">
-                <button class="icon-btn">🌐</button>
-                <button class="icon-btn dark">🚀</button>
+        <!-- Tela do Jogo -->
+        <div id="gameScreen" class="hidden">
+            <div class="stars-container" id="starsContainer"></div>
+            
+            <div class="question-number" id="questionNumber">Pergunta 1 de 10</div>
+
+            <div class="image-container" id="imageEmoji">🍎</div>
+
+            <div class="question-text">Com qual vogal começa?</div>
+
+            <div class="feedback" id="feedback"></div>
+
+            <div class="buttons-container">
+                <button class="vowel-button btn-a" onclick="checkAnswer('A')">A</button>
+                <button class="vowel-button btn-e" onclick="checkAnswer('E')">E</button>
+                <button class="vowel-button btn-i" onclick="checkAnswer('I')">I</button>
+                <button class="vowel-button btn-o" onclick="checkAnswer('O')">O</button>
+                <button class="vowel-button btn-u" onclick="checkAnswer('U')">U</button>
             </div>
         </div>
 
-        <div class="content">
-            <!-- Menu Inicial -->
-            <div id="menuScreen" class="card menu-screen">
-                <h1>Bem-vindo!</h1>
-                <p>Escolha um nível e comece</p>
-                
-                <div class="difficulty-buttons">
-                    <button class="difficulty-btn active" onclick="setDifficulty('facil')">
-                        😊 Fácil (5 questões)
-                    </button>
-                    <button class="difficulty-btn" onclick="setDifficulty('medio')">
-                        🤔 Médio (10 questões)
-                    </button>
-                    <button class="difficulty-btn" onclick="setDifficulty('dificil')">
-                        😰 Difícil (15 questões)
-                    </button>
-                </div>
-
-                <button class="btn-restart" onclick="startGame()">Começar Jogo</button>
-
-                <div class="vowels-info">
-                    <h3>📚 As Vogais</h3>
-                    <p><strong>A, E, I, O, U</strong></p>
-                </div>
-            </div>
-
-            <!-- Tela do Jogo -->
-            <div id="gameScreen" class="hidden" style="width: 100%;">
-                <div class="score-container">
-                    <span class="star">⭐</span>
-                    <span class="score-value" id="score">0</span>
-                </div>
-
-                <div class="progress-dots" id="progressDots"></div>
-
-                <div class="card">
-                    <div class="question">
-                        <span class="question-emoji">🤔</span>
-                        <span>Com qual letra começa?</span>
-                    </div>
-
-                    <div class="illustration" id="illustration">🅰️</div>
-
-                    <div class="answer-display">
-                        <div class="answer-question">? Começa com</div>
-                        <div class="answer-text" id="answerText">A</div>
-                    </div>
-
-                    <div class="feedback" id="feedback"></div>
-
-                    <div class="button-group">
-                        <button class="answer-button btn-yes" onclick="answerYes()">A</button>
-                        <button class="answer-button btn-no" onclick="answerNo()">E</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Tela de Fim de Jogo -->
-            <div id="gameOverScreen" class="hidden">
-                <div class="card">
-                    <div class="game-over-content">
-                        <h2>🎉 Fim de Jogo!</h2>
-                        <div class="medal" id="medal">🏆</div>
-                        <div class="final-score" id="finalScore">10/10</div>
-                        <div class="performance-message" id="performanceMessage">Perfeição!</div>
-                        <button class="btn-restart" onclick="backToMenu()">↩️ Voltar ao Menu</button>
-                    </div>
-                </div>
-            </div>
+        <!-- Tela de Fim de Jogo -->
+        <div id="gameOverScreen" class="hidden game-over">
+            <h1>Parabéns! 🎉</h1>
+            <div class="final-medal" id="finalMedal">🏆</div>
+            <div class="final-message" id="finalMessage">Você foi incrível!</div>
+            <div class="final-score" id="finalScore">10 estrelas!</div>
+            <button class="restart-button" onclick="backToMenu()">Jogar Novamente</button>
         </div>
     </div>
 
     <script>
-        const vowels = ['A', 'E', 'I', 'O', 'U'];
-        const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-        const vowelEmojis = {
-            'A': '🅰️',
-            'E': '📧',
-            'I': 'ℹ️',
-            'O': '⭕',
-            'U': '☂️'
-        };
-        
+        const words = [
+            { word: 'Maçã', emoji: '🍎', vowel: 'A' },
+            { word: 'Avião', emoji: '✈️', vowel: 'A' },
+            { word: 'Abelha', emoji: '🐝', vowel: 'A' },
+            { word: 'Escada', emoji: '🪜', vowel: 'E' },
+            { word: 'Elefante', emoji: '🐘', vowel: 'E' },
+            { word: 'Escola', emoji: '🏫', vowel: 'E' },
+            { word: 'Sorvete', emoji: '🍦', vowel: 'I' },
+            { word: 'Igreja', emoji: '⛪', vowel: 'I' },
+            { word: 'Iglu', emoji: '🏠', vowel: 'I' },
+            { word: 'Óculos', emoji: '👓', vowel: 'O' },
+            { word: 'Ovelha', emoji: '🐑', vowel: 'O' },
+            { word: 'Ovo', emoji: '🥚', vowel: 'O' },
+            { word: 'Uva', emoji: '🍇', vowel: 'U' },
+            { word: 'Urso', emoji: '🐻', vowel: 'U' },
+            { word: 'Uniforme', emoji: '⚽', vowel: 'U' }
+        ];
+
+        let currentQuestionIndex = 0;
         let score = 0;
-        let currentLetter = '';
-        let questionCount = 0;
         let maxQuestions = 10;
-        let difficulty = 'medio';
-        let answerOptions = [];
-        let correctAnswer = '';
-
-        const difficultySettings = {
-            facil: { questions: 5 },
-            medio: { questions: 10 },
-            dificil: { questions: 15 }
-        };
-
-        function setDifficulty(level) {
-            difficulty = level;
-            document.querySelectorAll('.difficulty-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-        }
+        let usedQuestions = [];
+        let currentWord = null;
 
         function startGame() {
-            maxQuestions = difficultySettings[difficulty].questions;
             score = 0;
-            questionCount = 0;
-            
+            currentQuestionIndex = 0;
+            usedQuestions = [];
+
             document.getElementById('menuScreen').classList.add('hidden');
             document.getElementById('gameScreen').classList.remove('hidden');
             document.getElementById('gameOverScreen').classList.add('hidden');
-            
-            createProgressDots();
+
             displayQuestion();
         }
 
-        function createProgressDots() {
-            const dotsContainer = document.getElementById('progressDots');
-            dotsContainer.innerHTML = '';
-            for (let i = 0; i < maxQuestions; i++) {
-                const dot = document.createElement('div');
-                dot.className = 'dot' + (i === 0 ? ' active' : '');
-                dotsContainer.appendChild(dot);
-            }
-        }
+        function getRandomQuestion() {
+            let randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * words.length);
+            } while (usedQuestions.includes(randomIndex) && usedQuestions.length < words.length);
 
-        function updateProgressDots() {
-            const dots = document.querySelectorAll('.dot');
-            dots.forEach((dot, index) => {
-                dot.classList.toggle('active', index === questionCount);
-            });
-        }
-
-        function getRandomLetter() {
-            return alphabet[Math.floor(Math.random() * alphabet.length)];
+            usedQuestions.push(randomIndex);
+            return words[randomIndex];
         }
 
         function displayQuestion() {
-            if (questionCount >= maxQuestions) {
+            if (currentQuestionIndex >= maxQuestions) {
                 endGame();
                 return;
             }
 
-            currentLetter = getRandomLetter();
-            correctAnswer = currentLetter;
-            
-            // Gerar opções de resposta
-            let options = [currentLetter];
-            while (options.length < 2) {
-                let randomLetter = getRandomLetter();
-                if (!options.includes(randomLetter)) {
-                    options.push(randomLetter);
-                }
-            }
-            
-            // Embaralhar opções
-            answerOptions = options.sort(() => Math.random() - 0.5);
+            currentWord = getRandomQuestion();
+            currentQuestionIndex++;
 
-            // Atualizar interface
-            document.getElementById('answerText').textContent = currentLetter;
-            document.getElementById('illustration').textContent = vowelEmojis[currentLetter] || '🔤';
+            document.getElementById('questionNumber').textContent = `Pergunta ${currentQuestionIndex} de ${maxQuestions}`;
+            document.getElementById('imageEmoji').textContent = currentWord.emoji;
             document.getElementById('feedback').textContent = '';
             document.getElementById('feedback').className = 'feedback';
 
-            // Atualizar botões
-            const buttons = document.querySelectorAll('.answer-button');
-            buttons.forEach((btn, index) => {
-                btn.textContent = answerOptions[index];
-                btn.onclick = () => checkAnswer(answerOptions[index]);
-            });
-
-            updateProgressDots();
+            updateStars();
         }
 
-        function checkAnswer(selectedLetter) {
-            const isCorrect = selectedLetter === correctAnswer;
+        function updateStars() {
+            const starsContainer = document.getElementById('starsContainer');
+            starsContainer.innerHTML = '';
+
+            for (let i = 0; i < score; i++) {
+                const star = document.createElement('span');
+                star.textContent = '⭐';
+                star.className = 'star';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        function checkAnswer(selectedVowel) {
+            const feedbackEl = document.getElementById('feedback');
+            const isCorrect = selectedVowel === currentWord.vowel;
 
             if (isCorrect) {
                 score++;
-                showFeedback('Correto! ✅', true);
+                feedbackEl.textContent = '✅ Correto!';
+                feedbackEl.className = 'feedback correct';
+                playCorrectSound();
             } else {
-                showFeedback('Errado! ❌', false);
+                feedbackEl.textContent = '❌ Tente novamente!';
+                feedbackEl.className = 'feedback incorrect';
             }
 
-            document.getElementById('score').textContent = score;
-            questionCount++;
-            
-            setTimeout(displayQuestion, 1500);
+            setTimeout(() => {
+                displayQuestion();
+            }, 1500);
         }
 
-        function answerYes() {
-            checkAnswer(answerOptions[0]);
-        }
+        function playCorrectSound() {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const notes = [523, 659, 784, 1047]; // C5, E5, G5, C6
 
-        function answerNo() {
-            checkAnswer(answerOptions[1]);
-        }
+                let delay = 0;
+                notes.forEach((frequency) => {
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
 
-        function showFeedback(message, isCorrect) {
-            const feedbackEl = document.getElementById('feedback');
-            feedbackEl.textContent = message;
-            feedbackEl.className = isCorrect ? 'feedback correct' : 'feedback incorrect';
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+
+                    oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime + delay);
+                    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime + delay);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + delay + 0.15);
+
+                    oscillator.start(audioContext.currentTime + delay);
+                    oscillator.stop(audioContext.currentTime + delay + 0.15);
+
+                    delay += 0.12;
+                });
+            } catch (e) {
+                console.log('Som não disponível');
+            }
         }
 
         function endGame() {
-            const percentage = Math.round((score / maxQuestions) * 100);
-            const medal = getMedal(percentage);
-            const message = getPerformanceMessage(percentage);
+            const medal = getMedal(score);
+            const message = getMessage(score);
 
-            document.getElementById('medal').textContent = medal;
-            document.getElementById('finalScore').textContent = `${score}/${maxQuestions}`;
-            document.getElementById('performanceMessage').textContent = message;
+            document.getElementById('finalMedal').textContent = medal;
+            document.getElementById('finalMessage').textContent = message;
+            document.getElementById('finalScore').textContent = `${score} estrelas de ${maxQuestions}!`;
 
             document.getElementById('gameScreen').classList.add('hidden');
             document.getElementById('gameOverScreen').classList.remove('hidden');
         }
 
-        function getMedal(percentage) {
-            if (percentage === 100) return '🏆';
-            if (percentage >= 80) return '🥇';
-            if (percentage >= 60) return '🥈';
-            if (percentage >= 40) return '🥉';
-            return '📚';
+        function getMedal(score) {
+            if (score === maxQuestions) return '🏆';
+            if (score >= 8) return '🥇';
+            if (score >= 6) return '🥈';
+            if (score >= 4) return '🥉';
+            return '🎖️';
         }
 
-        function getPerformanceMessage(percentage) {
-            if (percentage === 100) return 'Perfeição! Você é um mestre! 🌟';
-            if (percentage >= 80) return 'Excelente desempenho! 👏';
-            if (percentage >= 60) return 'Bom trabalho! Continue! 💪';
-            if (percentage >= 40) return 'Tente novamente! 🚀';
-            return 'Continue praticando! 📚';
+        function getMessage(score) {
+            if (score === maxQuestions) return 'Perfeito! Você é uma estrela! ⭐';
+            if (score >= 8) return 'Excelente! Parabéns! 🎉';
+            if (score >= 6) return 'Muito bom! Continue assim! 💪';
+            if (score >= 4) return 'Bom! Tente novamente! 🚀';
+            return 'Continue tentando! 📚';
         }
 
         function backToMenu() {
