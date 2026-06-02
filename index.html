@@ -402,20 +402,10 @@
     <script>
         const words = [
             { emoji: '💍', vowel: 'A' },
-            { emoji: '✈️', vowel: 'A' },
-            { emoji: '🌳', vowel: 'A' },
             { emoji: '🐘', vowel: 'E' },
-            { emoji: '🏫', vowel: 'E' },
-            { emoji: '🪜', vowel: 'E' },
             { emoji: '🏝️', vowel: 'I' },
-            { emoji: '⛪', vowel: 'I' },
-            { emoji: '💡', vowel: 'I' },
             { emoji: '🐆', vowel: 'O' },
-            { emoji: '👓', vowel: 'O' },
-            { emoji: '🥚', vowel: 'O' },
-            { emoji: '🍇', vowel: 'U' },
-            { emoji: '🦄', vowel: 'U' },
-            { emoji: '🐻', vowel: 'U' }
+            { emoji: '🦄', vowel: 'U' }
         ];
 
         let currentQuestionIndex = 0;
@@ -437,13 +427,8 @@
         }
 
         function getRandomQuestion() {
-            let randomIndex;
-            do {
-                randomIndex = Math.floor(Math.random() * words.length);
-            } while (usedQuestions.includes(randomIndex) && usedQuestions.length < words.length);
-
-            usedQuestions.push(randomIndex);
-            return words[randomIndex];
+            const randomVowelIndex = Math.floor(Math.random() * words.length);
+            return words[randomVowelIndex];
         }
 
         function displayQuestion() {
