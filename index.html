@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo das Vogais - Versão 2.0</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 700px;
+            width: 100%;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2.8em;
+            margin-bottom: 10px;
+            animation: slideIn 0.5s ease;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .difficulty-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+
+        .difficulty-btn {
+            padding: 10px 20px;
+            border: 2px solid #ddd;
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .difficulty-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .difficulty-btn:hover {
+            border-color: #667eea;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-item {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .game-content {
+            text-align: center;
+        }
+
+        .letter-display {
+            font-size: 5em;
+            font-weight: bold;
+            color: #667eea;
+            margin: 30px 0;
+            letter-spacing: 15px;
+            animation: pop 0.5s ease;
+        }
+
+        @keyframes pop {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .question {
+            font-size: 1.4em;
+            color: #333;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .feedback {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            min-height: 40px;
+            font-weight: bold;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .feedback.correct {
+            color: #4CAF50;
+        }
+
+        .feedback.incorrect {
+            color: #f44336;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        button {
+            padding: 14px 35px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            flex: 1;
+            min-width: 100px;
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        .btn-yes {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .btn-yes:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        .btn-no {
+            background: linear-gradient(135deg, #f44336, #da190b);
+            color: white;
+            box-shadow: 0 5px 15px rgba(244, 67, 54, 0.3);
+        }
+
+        .btn-no:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(244, 67, 54, 0.4);
+        }
+
+        .btn-restart {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            width: 100%;
+        }
+
+        .btn-restart:hover {
+            transform: translateY(-2px);
+        }
+
+        .vowels {
+            background: linear-gradient(135deg, #f5f7fa, #f0f0f0);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .vowels h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .vowels p {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .game-over {
+            display: none;
+            animation: slideIn 0.5s ease;
+        }
+
+        .game-over.show {
+            display: block;
+        }
+
+        .final-score {
+            font-size: 3em;
+            color: #667eea;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+
+        .performance-message {
+            font-size: 1.3em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .medal {
+            font-size: 4em;
+            margin: 20px 0;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .menu-screen {
+            text-align: center;
+        }
+
+        .menu-screen h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .menu-screen p {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .btn-play {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 16px 50px;
+            font-size: 1.2em;
+        }
+
+        .btn-play:hover {
+            transform: translateY(-2px);
+        }
+
+        .streak {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+            color: #856404;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .letter-display {
+                font-size: 3.5em;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎮 Jogo das Vogais 2.0</h1>
+            <p class="subtitle">Versão Melhorada - Desafie-se!</p>
+        </header>
+
+        <!-- Menu Inicial -->
+        <div id="menuScreen" class="menu-screen">
+            <h2>Bem-vindo!</h2>
+            <p>Escolha um nível de dificuldade e comece o jogo!</p>
+            
+            <div class="difficulty-selector">
+                <button class="difficulty-btn active" onclick="setDifficulty('facil')">
+                    😊 Fácil (5 questões)
+                </button>
+                <button class="difficulty-btn" onclick="setDifficulty('medio')">
+                    🤔 Médio (10 questões)
+                </button>
+                <button class="difficulty-btn" onclick="setDifficulty('dificil')">
+                    😰 Difícil (15 questões)
+                </button>
+            </div>
+
+            <button class="btn-play" onclick="startGame()">Começar Jogo</button>
+
+            <div class="vowels">
+                <h3>📚 As Vogais são:</h3>
+                <p><strong>A, E, I, O, U</strong></p>
+                <p>Todas as outras letras são <strong>consoantes</strong>.</p>
+            </div>
+        </div>
+
+        <!-- Tela do Jogo -->
+        <div id="gameScreen" class="hidden">
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-label">Acertos</div>
+                    <div class="stat-value" id="correct">0</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Erros</div>
+                    <div class="stat-value" id="incorrect">0</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Sequência</div>
+                    <div class="stat-value" id="streak">0</div>
+                </div>
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+
+            <div class="game-content">
+                <div class="letter-display" id="letterDisplay">A</div>
+                <div class="question">Esta é uma vogal?</div>
+                <div class="feedback" id="feedback"></div>
+                <div class="buttons">
+                    <button class="btn-yes" onclick="answerYes()">✅ Sim</button>
+                    <button class="btn-no" onclick="answerNo()">❌ Não</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tela de Fim de Jogo -->
+        <div id="gameOverScreen" class="hidden">
+            <div class="game-over">
+                <h2>🎉 Fim de Jogo!</h2>
+                <div class="medal" id="medal"></div>
+                <div class="final-score" id="finalScore"></div>
+                <div class="performance-message" id="performanceMessage"></div>
+                <button class="btn-restart" onclick="backToMenu()">↩️ Voltar ao Menu</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const vowels = ['A', 'E', 'I', 'O', 'U'];
+        const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+        
+        let correct = 0;
+        let incorrect = 0;
+        let currentLetter = '';
+        let questionCount = 0;
+        let maxQuestions = 10;
+        let currentStreak = 0;
+        let difficulty = 'medio';
+        let usedLetters = [];
+
+        const difficultySettings = {
+            facil: { questions: 5, message: 'iniciante' },
+            medio: { questions: 10, message: 'intermediário' },
+            dificil: { questions: 15, message: 'avançado' }
+        };
+
+        function setDifficulty(level) {
+            difficulty = level;
+            document.querySelectorAll('.difficulty-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        function startGame() {
+            maxQuestions = difficultySettings[difficulty].questions;
+            correct = 0;
+            incorrect = 0;
+            questionCount = 0;
+            currentStreak = 0;
+            usedLetters = [];
+            
+            document.getElementById('menuScreen').classList.add('hidden');
+            document.getElementById('gameScreen').classList.remove('hidden');
+            document.getElementById('gameOverScreen').classList.add('hidden');
+            
+            updateStats();
+            displayLetter();
+        }
+
+        function getRandomLetter() {
+            let letter = alphabet[Math.floor(Math.random() * alphabet.length)];
+            return letter;
+        }
+
+        function isVowel(letter) {
+            return vowels.includes(letter.toUpperCase());
+        }
+
+        function displayLetter() {
+            if (questionCount >= maxQuestions) {
+                endGame();
+                return;
+            }
+            currentLetter = getRandomLetter();
+            document.getElementById('letterDisplay').textContent = currentLetter;
+            document.getElementById('feedback').textContent = '';
+            document.getElementById('feedback').className = 'feedback';
+        }
+
+        function answerYes() {
+            if (questionCount >= maxQuestions) return;
+            processAnswer(isVowel(currentLetter));
+        }
+
+        function answerNo() {
+            if (questionCount >= maxQuestions) return;
+            processAnswer(!isVowel(currentLetter));
+        }
+
+        function processAnswer(isCorrect) {
+            if (isCorrect) {
+                correct++;
+                currentStreak++;
+                showFeedback('Correto! ✅', true);
+            } else {
+                incorrect++;
+                currentStreak = 0;
+                showFeedback('Errado! ❌', false);
+            }
+            updateStats();
+            questionCount++;
+            updateProgress();
+            setTimeout(displayLetter, 1500);
+        }
+
+        function showFeedback(message, isCorrect) {
+            const feedbackEl = document.getElementById('feedback');
+            feedbackEl.textContent = message;
+            feedbackEl.className = isCorrect ? 'feedback correct' : 'feedback incorrect';
+        }
+
+        function updateStats() {
+            document.getElementById('correct').textContent = correct;
+            document.getElementById('incorrect').textContent = incorrect;
+            document.getElementById('streak').textContent = currentStreak;
+        }
+
+        function updateProgress() {
+            const progress = (questionCount / maxQuestions) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        function endGame() {
+            const percentage = Math.round((correct / maxQuestions) * 100);
+            const medal = getMedal(percentage);
+            const message = getPerformanceMessage(percentage);
+
+            document.getElementById('medal').textContent = medal;
+            document.getElementById('finalScore').textContent = `${correct}/${maxQuestions} acertos (${percentage}%)`;
+            document.getElementById('performanceMessage').textContent = message;
+
+            document.getElementById('gameScreen').classList.add('hidden');
+            document.getElementById('gameOverScreen').classList.remove('hidden');
+        }
+
+        function getMedal(percentage) {
+            if (percentage === 100) return '🏆';
+            if (percentage >= 80) return '🥇';
+            if (percentage >= 60) return '🥈';
+            if (percentage >= 40) return '🥉';
+            return '📝';
+        }
+
+        function getPerformanceMessage(percentage) {
+            if (percentage === 100) return 'Perfeição! Você é um mestre em vogais! 🌟';
+            if (percentage >= 80) return 'Excelente! Você domina bem as vogais! 👏';
+            if (percentage >= 60) return 'Bom trabalho! Continue praticando! 💪';
+            if (percentage >= 40) return 'Você está no caminho certo! Tente novamente! 🚀';
+            return 'Não desista! Pratique mais e melhore! 📚';
+        }
+
+        function backToMenu() {
+            document.getElementById('menuScreen').classList.remove('hidden');
+            document.getElementById('gameScreen').classList.add('hidden');
+            document.getElementById('gameOverScreen').classList.add('hidden');
+            resetStats();
+        }
+
+        function resetStats() {
+            correct = 0;
+            incorrect = 0;
+            questionCount = 0;
+            currentStreak = 0;
+            usedLetters = [];
+            updateStats();
+            updateProgress();
+        }
+    </script>
+</body>
+</html>
